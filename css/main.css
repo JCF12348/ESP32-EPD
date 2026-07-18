@@ -4370,11 +4370,32 @@ input[type="range"]::-webkit-slider-thumb:active {
 .copyright-footer {
     text-align: center;
     margin-top: 28px;
-    padding-top: 16px;
+    padding: 18px 12px 0;
     border-top: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 12px;
     font-size: 12px;
     color: var(--text-muted);
     letter-spacing: 0.3px;
+}
+
+.copyright-footer span {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.copyright-footer span + span::before {
+    content: "";
+    width: 4px;
+    height: 4px;
+    margin-right: 12px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.45;
 }
 
 /* ========== 移动端整体缩放（保持桌面布局） ========== */
@@ -4638,21 +4659,21 @@ input[type="range"]::-webkit-slider-thumb:active {
     }
 
     .preview-and-controls .preview-panel {
-        flex-basis: 57%;
-        padding: 8px;
+        flex-basis: 62%;
+        padding: 10px;
         top: 6px;
     }
 
     .preview-and-controls .controls-panel {
-        flex-basis: 43%;
+        flex-basis: 38%;
         max-height: calc(100vh - 76px);
-        padding: 8px;
+        padding: 10px;
     }
 
     .preview-and-controls .section-title {
-        margin-bottom: 7px;
-        padding-bottom: 6px;
-        font-size: 12px;
+        margin-bottom: 9px;
+        padding-bottom: 7px;
+        font-size: 15px;
     }
 
     .preview-mode-toolbar {
@@ -4662,14 +4683,14 @@ input[type="range"]::-webkit-slider-thumb:active {
 
     .mode-selector,
     .preview-transform-controls {
-        gap: 5px;
+        gap: 7px;
     }
 
     .mode-btn,
     .preview-transform-controls button {
-        min-height: 30px;
-        padding: 6px 7px;
-        font-size: 11px;
+        min-height: 36px;
+        padding: 8px 10px;
+        font-size: 13px;
     }
 
     .preview-transform-label,
@@ -4678,43 +4699,44 @@ input[type="range"]::-webkit-slider-thumb:active {
     }
 
     .calendar-preview-header {
-        gap: 6px;
+        gap: 8px;
     }
 
     .calendar-preview-tabs {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
     }
 
     .calendar-preview-tab,
     .calendar-action-tab {
-        min-height: 28px;
-        padding: 4px 5px;
-        font-size: 10px;
+        min-height: 34px;
+        padding: 7px 8px;
+        font-size: 12px;
     }
 
     .calendar-preview-toolbar {
         grid-template-columns: 1fr;
-        gap: 5px;
+        gap: 7px;
     }
 
     .calendar-week-picker {
         display: grid;
         grid-template-columns: auto minmax(0, 1fr);
         align-items: center;
-        gap: 5px;
-        font-size: 10px;
+        gap: 7px;
+        font-size: 12px;
     }
 
     #calendar-preview-time,
     .calendar-preview-live {
         justify-content: flex-start;
         text-align: left;
-        font-size: 9px;
+        font-size: 11px;
     }
 
     .calendar-preview-frame {
-        max-height: 34vh;
-        min-height: 120px;
+        max-height: 42vh;
+        min-height: 160px;
         aspect-ratio: 768 / 552;
     }
 
@@ -4727,29 +4749,29 @@ input[type="range"]::-webkit-slider-thumb:active {
     }
 
     .controls-panel .sub-section {
-        padding: 8px;
-        margin-bottom: 8px;
+        padding: 11px;
+        margin-bottom: 11px;
     }
 
     .controls-panel .sub-section h4 {
-        font-size: 11px;
+        font-size: 14px;
     }
 
     .controls-panel label,
     .slider-label,
     .slider-value {
-        font-size: 10px;
+        font-size: 13px;
     }
 
     .slider-container {
-        margin-bottom: 8px;
+        margin-bottom: 12px;
     }
 
     input[type="number"],
     select,
     input[type="text"] {
-        min-height: 30px;
-        padding: 6px 7px;
-        font-size: 11px;
+        min-height: 38px;
+        padding: 8px 10px;
+        font-size: 13px;
     }
 }

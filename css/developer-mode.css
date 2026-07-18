@@ -488,7 +488,7 @@
 
     .preserved-bluetooth-layout .workbench-links a {
         padding: 14px 4px 12px;
-        font-size: 13px;
+        font-size: 14px;
     }
 
     .preserved-bluetooth-layout .workbench-links a.is-active {
@@ -496,7 +496,7 @@
     }
 
     .preserved-bluetooth-layout .developer-context-title {
-        font-size: 17px;
+        font-size: 19px;
     }
 
     .preserved-bluetooth-layout .developer-context-meta {
@@ -504,21 +504,32 @@
     }
 
     .preserved-bluetooth-layout .device-binding-panel .bluetooth-button-group {
-        grid-template-columns: minmax(0, 1fr);
+        grid-template-columns: auto auto minmax(220px, 1fr) minmax(230px, 0.9fr);
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 4px;
     }
 
     .preserved-bluetooth-layout .device-binding-panel .device-driver-setting {
-        grid-template-columns: minmax(0, 1fr);
+        grid-template-columns: auto minmax(0, 1fr);
+        min-width: 220px;
     }
 
-    .preserved-bluetooth-layout .device-binding-panel .driver-command-input,
+    .preserved-bluetooth-layout .device-binding-panel .driver-command-input {
+        grid-template-columns: minmax(0, 1fr) 72px;
+        width: 100%;
+        min-width: 230px;
+    }
+
     .preserved-bluetooth-layout .connection-log-panel .command-system-strip,
     .preserved-bluetooth-layout .compact-device-images .export-group {
         grid-template-columns: 1fr;
     }
 
     .preserved-bluetooth-layout .device-binding-panel .bluetooth-button-group > button {
-        width: 100%;
+        width: auto;
+        min-width: 112px;
+        font-size: 13px;
     }
 
     .preserved-bluetooth-layout .connection-log-panel {
@@ -532,9 +543,9 @@
 
     .preserved-bluetooth-layout .connection-log-panel .command-output {
         order: 2;
-        min-height: 118px;
+        min-height: 132px;
         max-height: 36vh;
-        font-size: 12px;
+        font-size: 13px;
     }
 
 }
