@@ -371,9 +371,6 @@
     function markPostTransferSettle(ms = POST_TRANSFER_SETTLE_MS) {
         transferSettleUntil = Math.max(transferSettleUntil, Date.now() + ms);
         updateStatusInfo();
-        updateWorkbenchNavState();
-        window.addEventListener('hashchange', updateWorkbenchNavState);
-        window.addEventListener('scroll', updateWorkbenchNavState, { passive: true });
     }
     function finishPostTransferSettle() {
         transferSettleUntil = 0;
@@ -3997,29 +3994,6 @@
             if (albumModeArea.dataset.playbackState === 'pending') setAlbumPlaybackState(false);
         }, 3000);
     });
-
-    function updateWorkbenchNavState() {
-        const links = Array.from(document.querySelectorAll('.workbench-links a[href^="#"]'));
-        if (!links.length) return;
-        const currentHash = window.location.hash || '#bluetooth-panel';
-        let activeLink = links.find(link => link.getAttribute('href') === currentHash);
-        if (!activeLink) {
-            const offset = 130;
-            activeLink = links[0];
-            for (const link of links) {
-                const target = document.querySelector(link.getAttribute('href'));
-                if (target && target.getBoundingClientRect().top <= offset) {
-                    activeLink = link;
-                }
-            }
-        }
-        for (const link of links) {
-            const active = link === activeLink;
-            link.classList.toggle('is-active', active);
-            if (active) link.setAttribute('aria-current', 'page');
-            else link.removeAttribute('aria-current');
-        }
-    }
 
     function detectDevice() { const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent); const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0; if (isMobile || isTouch) { document.body.classList.add('touch-device');
             $$('button').forEach(b => { b.addEventListener('touchstart', () => b.style.transform = 'scale(0.97)');

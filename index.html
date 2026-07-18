@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>墨水屏日历</title>
-    <link rel="stylesheet" href="css/main.css?v=2026071811">
+    <link rel="stylesheet" href="css/main.css?v=2026071910">
     <link rel="stylesheet" href="css/developer-mode.css?v=2026071811">
 </head>
 
@@ -210,6 +210,41 @@
                             <canvas class="hover-preview-canvas" id="hover-preview-canvas" hidden></canvas>
                             <div class="preview-hover-message" id="preview-hover-message" hidden>尚无本地预览，点击文件名后将从设备读取并建立缓存。</div>
                             <div id="canvas-size-indicator">768×552</div>
+                        </div>
+                    </div>
+                    <div class="sub-section common-adjustments-section image-adjustments-under-preview">
+                        <h4>🎛 常用调节</h4>
+                        <div class="image-adjustment-algorithm">
+                            <label for="ditherAlgorithm">抖动算法</label>
+                            <select id="ditherAlgorithm">
+                                <option value="none">无抖动 (直接映射)</option>
+                                <option value="floyd-steinberg" selected>Floyd-Steinberg</option>
+                                <option value="atkinson">Atkinson</option>
+                                <option value="stucki">Stucki</option>
+                                <option value="jarvis-judice-ninke">Jarvis-Judice-Ninke</option>
+                                <option value="bayer">Bayer (有序抖动)</option>
+                            </select>
+                            <div class="algorithm-description">
+                                <span id="algorithm-description-text">Floyd-Steinberg: 经典误差扩散算法，效果平滑</span>
+                            </div>
+                        </div>
+                        <div class="image-adjustment-sliders">
+                            <div class="slider-container">
+                                <div class="slider-label"><span>饱和度</span><span id="saturation-value" class="slider-value">1.0</span></div>
+                                <input type="range" id="saturation-slider" min="0" max="2" step="0.1" value="1.0" />
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-label"><span>亮度</span><span id="brightness-value" class="slider-value">1.0</span></div>
+                                <input type="range" id="brightness-slider" min="0" max="2" step="0.1" value="1.0" />
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-label"><span>对比度</span><span id="contrast-value" class="slider-value">1.0</span></div>
+                                <input type="range" id="contrast-slider" min="0" max="2" step="0.1" value="1.0" />
+                            </div>
+                            <div class="slider-container">
+                                <div class="slider-label"><span>扩散程度</span><span id="diffusion-value" class="slider-value">0.5</span></div>
+                                <input type="range" id="diffusion-slider" min="0" max="1" step="0.1" value="0.5" />
+                            </div>
                         </div>
                     </div>
                     <div class="epd-editor-panel" id="epd-editor-panel" aria-label="上位机编辑工具">
@@ -532,41 +567,6 @@
             <div class="controls-panel">
                 <h2 class="section-title">图像参数设置</h2>
                 <div id="epd-editor-settings-anchor" class="epd-editor-settings-anchor" aria-label="功能设置"></div>
-                <div class="sub-section common-adjustments-section">
-                    <h4>🎛 常用调节</h4>
-                    <div style="margin-bottom: 12px;">
-                        <label for="ditherAlgorithm">抖动算法</label>
-                        <select id="ditherAlgorithm">
-                            <option value="none">无抖动 (直接映射)</option>
-                            <option value="floyd-steinberg" selected>Floyd-Steinberg</option>
-                            <option value="atkinson">Atkinson</option>
-                            <option value="stucki">Stucki</option>
-                            <option value="jarvis-judice-ninke">Jarvis-Judice-Ninke</option>
-                            <option value="bayer">Bayer (有序抖动)</option>
-                        </select>
-                        <div style="background-color: #f0f6fb; padding: 7px 10px; border-radius: 6px; margin-top: 4px; font-size: 11px; color:#3a5a70; letter-spacing:0.1px; border:1px solid #e0ecf5;">
-                            <span id="algorithm-description-text">Floyd-Steinberg: 经典误差扩散算法，效果平滑</span>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="slider-container">
-                            <div class="slider-label"><span>饱和度</span><span id="saturation-value" class="slider-value">1.0</span></div>
-                            <input type="range" id="saturation-slider" min="0" max="2" step="0.1" value="1.0" />
-                        </div>
-                        <div class="slider-container">
-                            <div class="slider-label"><span>亮度</span><span id="brightness-value" class="slider-value">1.0</span></div>
-                            <input type="range" id="brightness-slider" min="0" max="2" step="0.1" value="1.0" />
-                        </div>
-                        <div class="slider-container">
-                            <div class="slider-label"><span>对比度</span><span id="contrast-value" class="slider-value">1.0</span></div>
-                            <input type="range" id="contrast-slider" min="0" max="2" step="0.1" value="1.0" />
-                        </div>
-                        <div class="slider-container">
-                            <div class="slider-label"><span>扩散程度</span><span id="diffusion-value" class="slider-value">0.5</span></div>
-                            <input type="range" id="diffusion-slider" min="0" max="1" step="0.1" value="0.5" />
-                        </div>
-                    </div>
-                </div>
                 <div class="canvas-state-controls" hidden aria-hidden="true">
                     <div class="grid-2">
                         <div>

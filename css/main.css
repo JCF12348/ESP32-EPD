@@ -319,6 +319,57 @@ button::after,
     border-top: 1px solid var(--border-light);
 }
 
+.image-adjustments-under-preview {
+    margin: 12px 0 14px;
+    padding: 14px;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    background: #fbfdff;
+}
+
+.image-adjustments-under-preview h4 {
+    margin-bottom: 10px;
+}
+
+.image-adjustment-algorithm {
+    display: grid;
+    grid-template-columns: auto minmax(180px, 280px) minmax(0, 1fr);
+    align-items: center;
+    gap: 8px 10px;
+    margin-bottom: 12px;
+}
+
+.image-adjustment-algorithm label {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.image-adjustment-algorithm select {
+    width: 100%;
+    margin: 0;
+}
+
+.algorithm-description {
+    min-width: 0;
+    padding: 7px 10px;
+    border: 1px solid #e0ecf5;
+    border-radius: 6px;
+    background-color: #f0f6fb;
+    color: #3a5a70;
+    font-size: 11px;
+    letter-spacing: 0.1px;
+}
+
+.image-adjustment-sliders {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px 14px;
+}
+
+.image-adjustment-sliders .slider-container {
+    margin-bottom: 0;
+}
+
 .sub-section h4,
 .collapsible-panel h4,
 .album-title,
@@ -1260,6 +1311,26 @@ input[type="range"]::-webkit-slider-thumb:active {
     .container {
         padding-inline: 12px;
         padding-bottom: 24px;
+    }
+
+    .image-adjustments-under-preview {
+        overflow-x: visible;
+    }
+
+    .image-adjustment-algorithm {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .image-adjustment-sliders {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .image-adjustment-sliders .slider-label {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2px;
+        font-size: 11px;
     }
 
     .header {
@@ -4467,311 +4538,4 @@ input[type="range"]::-webkit-slider-thumb:active {
         font-size: 14px;
     }
 }
-}
-
-/* Mobile image controls stay beside preview */
-@media (max-width: 1020px) {
-    .preview-and-controls {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: flex-start;
-        gap: 12px;
-        margin-bottom: 14px;
-    }
-
-    .preview-and-controls .preview-panel {
-        flex: 1 1 62%;
-        width: auto;
-        min-width: 0;
-        padding: 12px;
-        position: sticky;
-        top: 8px;
-        z-index: 1;
-    }
-
-    .preview-and-controls .controls-panel {
-        flex: 1 1 38%;
-        width: auto;
-        min-width: 0;
-        max-height: calc(100vh - 96px);
-        overflow-y: auto;
-        padding: 12px;
-        overscroll-behavior: contain;
-        scrollbar-gutter: stable;
-    }
-
-    .preview-and-controls .section-title {
-        min-height: 0;
-        margin-bottom: 10px;
-        padding-bottom: 8px;
-        font-size: 13px;
-        line-height: 1.2;
-    }
-
-    .preview-mode-toolbar {
-        gap: 8px;
-        margin-bottom: 10px;
-    }
-
-    .mode-btn,
-    .preview-transform-controls button {
-        min-height: 34px;
-        padding: 8px 10px;
-        font-size: 12px;
-        line-height: 1.15;
-    }
-
-    .preview-transform-controls {
-        gap: 6px;
-    }
-
-    .preview-transform-label {
-        font-size: 10px;
-    }
-
-    .controls-panel .sub-section {
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 10px;
-    }
-
-    .controls-panel .sub-section h4 {
-        margin-bottom: 8px;
-        font-size: 12px;
-        line-height: 1.25;
-    }
-
-    .controls-panel label,
-    .slider-label,
-    .slider-value {
-        font-size: 11px;
-        line-height: 1.25;
-    }
-
-    .slider-container {
-        margin: 0 0 10px;
-    }
-
-    input[type="range"] {
-        height: 18px;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-        width: 18px;
-        height: 18px;
-    }
-
-    input[type="number"],
-    select,
-    input[type="text"] {
-        min-height: 34px;
-        padding: 8px 9px;
-        font-size: 12px;
-    }
-
-    .info-card {
-        padding: 8px 10px;
-        font-size: 11px;
-        line-height: 1.35;
-    }
-
-    #calendar-mode-interface {
-        min-width: 0;
-    }
-
-    .calendar-preview-header {
-        gap: 8px;
-        margin-bottom: 8px;
-    }
-
-    .calendar-preview-tabs,
-    .calendar-preview-toolbar {
-        min-width: 0;
-    }
-
-    .calendar-preview-tabs {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        width: 100%;
-        gap: 4px;
-    }
-
-    .calendar-preview-tab,
-    .calendar-action-tab {
-        min-width: 0;
-        min-height: 30px;
-        padding: 5px 6px;
-        font-size: 11px;
-        line-height: 1.15;
-        white-space: normal;
-    }
-
-    .calendar-preview-toolbar {
-        width: 100%;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .calendar-week-picker {
-        min-width: 0;
-    }
-
-    #calendar-preview-time {
-        max-width: none;
-        font-size: 10px;
-        text-align: right;
-        white-space: normal;
-        overflow-wrap: anywhere;
-    }
-
-    .calendar-preview-live {
-        grid-column: 1 / -1;
-        width: auto;
-        justify-content: flex-end;
-        font-size: 10px;
-    }
-
-    .calendar-preview-frame {
-        max-height: min(46vh, 360px);
-        overflow: visible;
-        border-radius: 7px;
-    }
-
-    .calendar-preview-badge {
-        right: 5px;
-        bottom: 5px;
-        max-width: calc(100% - 10px);
-        padding: 3px 6px;
-        font-size: 9px;
-        line-height: 1.2;
-    }
-}
-
-@media (max-width: 520px) {
-    .container {
-        padding-inline: 8px;
-    }
-
-    .preview-and-controls {
-        gap: 8px;
-    }
-
-    .preview-and-controls .preview-panel {
-        flex-basis: 62%;
-        padding: 10px;
-        top: 6px;
-    }
-
-    .preview-and-controls .controls-panel {
-        flex-basis: 38%;
-        max-height: calc(100vh - 76px);
-        padding: 10px;
-    }
-
-    .preview-and-controls .section-title {
-        margin-bottom: 9px;
-        padding-bottom: 7px;
-        font-size: 15px;
-    }
-
-    .preview-mode-toolbar {
-        gap: 6px;
-        margin-bottom: 8px;
-    }
-
-    .mode-selector,
-    .preview-transform-controls {
-        gap: 7px;
-    }
-
-    .mode-btn,
-    .preview-transform-controls button {
-        min-height: 36px;
-        padding: 8px 10px;
-        font-size: 13px;
-    }
-
-    .preview-transform-label,
-    .info-card {
-        display: none;
-    }
-
-    .calendar-preview-header {
-        gap: 8px;
-    }
-
-    .calendar-preview-tabs {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 6px;
-    }
-
-    .calendar-preview-tab,
-    .calendar-action-tab {
-        min-height: 34px;
-        padding: 7px 8px;
-        font-size: 12px;
-    }
-
-    .calendar-preview-toolbar {
-        grid-template-columns: 1fr;
-        gap: 7px;
-    }
-
-    .calendar-week-picker {
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr);
-        align-items: center;
-        gap: 7px;
-        font-size: 12px;
-    }
-
-    #calendar-preview-time,
-    .calendar-preview-live {
-        justify-content: flex-start;
-        text-align: left;
-        font-size: 11px;
-    }
-
-    .calendar-preview-frame {
-        max-height: 42vh;
-        min-height: 160px;
-        aspect-ratio: 768 / 552;
-    }
-
-    .calendar-preview-badge {
-        position: static;
-        align-self: flex-end;
-        margin: 4px 4px 0 auto;
-        max-width: 100%;
-        background: rgba(29, 29, 31, 0.68);
-    }
-
-    .controls-panel .sub-section {
-        padding: 11px;
-        margin-bottom: 11px;
-    }
-
-    .controls-panel .sub-section h4 {
-        font-size: 14px;
-    }
-
-    .controls-panel label,
-    .slider-label,
-    .slider-value {
-        font-size: 13px;
-    }
-
-    .slider-container {
-        margin-bottom: 12px;
-    }
-
-    input[type="number"],
-    select,
-    input[type="text"] {
-        min-height: 38px;
-        padding: 8px 10px;
-        font-size: 13px;
-    }
 }
