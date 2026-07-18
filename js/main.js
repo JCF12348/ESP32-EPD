@@ -6,6 +6,7 @@
 
     const scanBluetoothBtn = $('#scan-bluetooth');
     const sendBluetoothBtn = $('#send-bluetooth');
+    const previewSendImageBtn = $('#preview-send-image');
     const disconnectBluetoothBtn = $('#disconnect-bluetooth');
     const uploadArea = $('#upload-area');
     const imageUploadInput = $('#image-upload');
@@ -336,10 +337,14 @@
         currentAlgorithmEl.textContent = ALGO_NAMES[ditherAlgorithmSelect.value];
         modeDescEl.textContent = MODE_DESCRIPTIONS[ditherModeSelect.value];
         algoDescEl.textContent = ALGO_DESCRIPTIONS[ditherAlgorithmSelect.value];
+        ditherModeSelect.title = MODE_DESCRIPTIONS[ditherModeSelect.value];
+        ditherAlgorithmSelect.title = ALGO_DESCRIPTIONS[ditherAlgorithmSelect.value];
         imageStatusEl.textContent = originalImage ? '已上传' : (originalImageData ? '已生成' : (devicePreviewReady ? '设备预览' : '未上传'));
         const isConnected = Boolean(connectedDevice && connectedDevice.gatt.connected);
         const calendarSupported = [2, 3, 4, 6].includes(Number(getDriverConfig(currentModel)?.numericColorMode));
-        sendBluetoothBtn.disabled = driverSwitchInProgress || isTransferring || !isConnected || !processedImageData;
+        const sendImageDisabled = driverSwitchInProgress || isTransferring || !isConnected || !processedImageData;
+        sendBluetoothBtn.disabled = sendImageDisabled;
+        if (previewSendImageBtn) previewSendImageBtn.disabled = sendImageDisabled;
         if (driverSelect) driverSelect.disabled = driverSwitchInProgress || isTransferring;
         if (showCalendarBtn) showCalendarBtn.disabled = driverSwitchInProgress || !isConnected || !connectedCommandChar || !calendarSupported;
         if (showClockBtn) showClockBtn.disabled = driverSwitchInProgress || !isConnected || !connectedCommandChar || !calendarSupported;
@@ -1394,6 +1399,7 @@
     rotateRightBtn.addEventListener('click', () => rotateImage(90));
     resetTransformBtn.addEventListener('click', resetImageTransform);
     clearCanvasBtn.addEventListener('click', clearLocalCanvas);
+    if (previewSendImageBtn) previewSendImageBtn.addEventListener('click', () => sendBluetoothBtn.click());
     ditherModeSelect.addEventListener('change', () => { updateStatusInfo();
         refreshProcessedImage(); });
     ditherAlgorithmSelect.addEventListener('change', () => { updateStatusInfo();
@@ -3759,6 +3765,7 @@
 
     function setCalendarStylePanelOpen(open) {
         calendarStylePanelOpen = Boolean(open);
+        document.body.dataset.calendarStylePanelVisible = calendarStylePanelOpen ? 'true' : 'false';
         controlsPanel.classList.toggle('calendar-style-active', calendarStylePanelOpen);
         if (calendarStylePanelOpen) {
             controlsPanel.appendChild(calendarStylePanel);

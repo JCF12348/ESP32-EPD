@@ -199,6 +199,7 @@
                         <button id="rotate-right" type="button" title="向右旋转" aria-label="向右旋转">↻</button>
                         <button id="reset-transform" type="button" title="重置位置、缩放与旋转" aria-label="重置位置、缩放与旋转">⟲</button>
                         <button id="clear-canvas" type="button" title="仅清除主预览画布，保留设备图片列表及其缓存预览" aria-label="清除主预览画布">⌫</button>
+                        <button id="preview-send-image" type="button" class="preview-send-image-btn" title="发送当前图片到设备" aria-label="发送当前图片到设备">发送图片</button>
                     </div>
                 </div>
 
@@ -214,18 +215,34 @@
                     </div>
                     <div class="sub-section common-adjustments-section image-adjustments-under-preview">
                         <h4>🎛 常用调节</h4>
-                        <div class="image-adjustment-algorithm">
-                            <label for="ditherAlgorithm">抖动算法</label>
-                            <select id="ditherAlgorithm">
-                                <option value="none">无抖动 (直接映射)</option>
-                                <option value="floyd-steinberg" selected>Floyd-Steinberg</option>
-                                <option value="atkinson">Atkinson</option>
-                                <option value="stucki">Stucki</option>
-                                <option value="jarvis-judice-ninke">Jarvis-Judice-Ninke</option>
-                                <option value="bayer">Bayer (有序抖动)</option>
-                            </select>
-                            <div class="algorithm-description">
-                                <span id="algorithm-description-text">Floyd-Steinberg: 经典误差扩散算法，效果平滑</span>
+                        <div class="image-adjustment-selects">
+                            <div class="image-adjustment-field">
+                                <label for="ditherMode">处理模式
+                                    <span class="field-help" tabindex="0" aria-label="查看处理模式说明">?
+                                        <span id="mode-description-text" class="field-help-tooltip">黑白模式：将图像转换为黑白两色，适合单色墨水屏显示</span>
+                                    </span>
+                                </label>
+                                <select id="ditherMode">
+                                    <option value="blackWhiteColor">黑白模式</option>
+                                    <option value="threeColor">三色模式（黑白红）</option>
+                                    <option value="fourColor">四色模式（黑白黄红）</option>
+                                    <option value="sixColor">六色模式（黑白黄红蓝绿）</option>
+                                </select>
+                            </div>
+                            <div class="image-adjustment-field">
+                                <label for="ditherAlgorithm">抖动算法
+                                    <span class="field-help" tabindex="0" aria-label="查看抖动算法说明">?
+                                        <span id="algorithm-description-text" class="field-help-tooltip">Floyd-Steinberg: 经典误差扩散算法，效果平滑</span>
+                                    </span>
+                                </label>
+                                <select id="ditherAlgorithm">
+                                    <option value="none">无抖动 (直接映射)</option>
+                                    <option value="floyd-steinberg" selected>Floyd-Steinberg</option>
+                                    <option value="atkinson">Atkinson</option>
+                                    <option value="stucki">Stucki</option>
+                                    <option value="jarvis-judice-ninke">Jarvis-Judice-Ninke</option>
+                                    <option value="bayer">Bayer (有序抖动)</option>
+                                </select>
                             </div>
                         </div>
                         <div class="image-adjustment-sliders">
@@ -371,9 +388,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="info-card">
-                        <strong>提示:</strong> 在右侧调整参数时，左侧图像会实时更新，方便您观察效果变化
                     </div>
                 </div>
 
@@ -545,7 +559,7 @@
                             <span>播放间隔</span>
                             <span class="album-input-with-unit">
                                 <input type="number" id="album-interval" value="3600" min="1" max="4294967" step="1" inputmode="numeric">
-                                <span>秒</span>
+                                <span>秒/张</span>
                             </span>
                         </label>
                         <fieldset class="album-order-field">
@@ -564,8 +578,7 @@
                 </div>
             </div>
 
-            <div class="controls-panel">
-                <h2 class="section-title">图像参数设置</h2>
+            <div class="controls-panel editor-controls-panel">
                 <div id="epd-editor-settings-anchor" class="epd-editor-settings-anchor" aria-label="功能设置"></div>
                 <div class="canvas-state-controls" hidden aria-hidden="true">
                     <div class="grid-2">
@@ -599,27 +612,12 @@
                     </div>
                     <button id="update-canvas">更新画布尺寸</button>
                 </div>
-                <div class="sub-section processing-mode-section">
-                    <h4>🎨 图片处理参数</h4>
-                    <div>
-                        <label for="ditherMode">处理模式</label>
-                        <select id="ditherMode">
-                            <option value="blackWhiteColor">黑白模式</option>
-                            <option value="threeColor">三色模式（黑白红）</option>
-                            <option value="fourColor">四色模式（黑白黄红）</option>
-                            <option value="sixColor">六色模式（黑白黄红蓝绿）</option>
-                        </select>
-                        <div style="background-color: #f0f6fb; padding: 7px 10px; border-radius: 6px; margin-top: 4px; font-size: 11px; color:#3a5a70; letter-spacing:0.1px; border:1px solid #e0ecf5;">
-                            <span id="mode-description-text">黑白模式：将图像转换为黑白两色，适合单色墨水屏显示</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
         <!-- 版权声明 -->
         <div class="copyright-footer">
-            <span>© Source from JCF 2026</span>
+            <span>© JCF 2026</span>
             <span>更新时间：2026-07-19</span>
             <span>版本号：v3.98</span>
         </div>
@@ -636,7 +634,7 @@
     <script src="js/firmware-fonts.js?v=2026071401"></script>
     <script src="js/firmware-font-renderer.js?v=2026071401"></script>
     <script src="js/config.js?v=2026071404"></script>
-    <script src="js/main.js?v=2026071811"></script>
+    <script src="js/main.js?v=2026071910"></script>
     <script src="js/paint-tools.js?v=2026071711"></script>
 </body>
 

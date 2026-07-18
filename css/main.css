@@ -274,6 +274,24 @@ button::after,
     flex: none;
 }
 
+.preview-and-controls > .preview-panel {
+    grid-column: 1 / -1;
+}
+
+body[data-epd-paint-settings-visible="true"] .preview-and-controls > .preview-panel,
+body[data-calendar-style-panel-visible="true"] .preview-and-controls > .preview-panel {
+    grid-column: auto;
+}
+
+.editor-controls-panel {
+    display: none;
+}
+
+body[data-epd-paint-settings-visible="true"] .editor-controls-panel,
+.editor-controls-panel.calendar-style-active {
+    display: flex;
+}
+
 .section-title {
     flex: 0 0 auto;
     min-height: 34px;
@@ -331,33 +349,72 @@ button::after,
     margin-bottom: 10px;
 }
 
-.image-adjustment-algorithm {
+.image-adjustment-selects {
     display: grid;
-    grid-template-columns: auto minmax(180px, 280px) minmax(0, 1fr);
-    align-items: center;
-    gap: 8px 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 14px;
     margin-bottom: 12px;
 }
 
-.image-adjustment-algorithm label {
-    margin: 0;
+.image-adjustment-field {
+    min-width: 0;
+}
+
+.image-adjustment-field label {
+    position: relative;
+    margin: 0 0 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     white-space: nowrap;
 }
 
-.image-adjustment-algorithm select {
+.image-adjustment-field select {
     width: 100%;
     margin: 0;
 }
 
-.algorithm-description {
-    min-width: 0;
-    padding: 7px 10px;
-    border: 1px solid #e0ecf5;
-    border-radius: 6px;
-    background-color: #f0f6fb;
-    color: #3a5a70;
+.field-help {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #edf5ff;
+    color: #0066cc;
     font-size: 11px;
-    letter-spacing: 0.1px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: help;
+}
+
+.field-help-tooltip {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    z-index: 20;
+    width: max-content;
+    max-width: 280px;
+    padding: 7px 9px;
+    transform: translateX(-50%) translateY(4px);
+    border: 1px solid #cfe0f2;
+    border-radius: 7px;
+    background: #0f1c2b;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.35;
+    white-space: normal;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.field-help:hover .field-help-tooltip,
+.field-help:focus-visible .field-help-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 .image-adjustment-sliders {
@@ -737,6 +794,15 @@ button:disabled {
     color: var(--text-secondary) !important;
     font-size: 19px;
     line-height: 1;
+}
+
+.preview-transform-controls .preview-send-image-btn {
+    width: auto;
+    min-width: 86px;
+    padding: 0 12px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
 }
 
 .preview-transform-controls button:hover,
@@ -1317,7 +1383,7 @@ input[type="range"]::-webkit-slider-thumb:active {
         overflow-x: visible;
     }
 
-    .image-adjustment-algorithm {
+    .image-adjustment-selects {
         grid-template-columns: minmax(0, 1fr);
     }
 
@@ -1431,6 +1497,42 @@ input[type="range"]::-webkit-slider-thumb:active {
         grid-template-columns: 1fr;
     }
 
+    .album-interval-field {
+        grid-template-columns: auto auto;
+        justify-content: start;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .album-input-with-unit {
+        grid-template-columns: 70px auto;
+        width: 118px;
+        min-width: 118px;
+    }
+
+    .album-input-with-unit input {
+        min-width: 0;
+        padding-inline: 10px 6px;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .album-input-with-unit > span:last-child {
+        padding-inline: 8px 10px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .connection-log-panel .command-output {
+        min-height: 92px;
+        font-size: clamp(10px, 2.7vw, 12px);
+        line-height: 1.55;
+        white-space: pre-wrap;
+        word-break: normal;
+        overflow-wrap: break-word;
+        text-align: left;
+    }
+
     .album-actions {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -1498,6 +1600,27 @@ input[type="range"]::-webkit-slider-thumb:active {
     .album-header {
         flex-direction: column;
         gap: 8px;
+    }
+
+    .album-settings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .album-interval-field {
+        grid-template-columns: auto auto;
+        justify-content: start;
+        padding: 10px;
+    }
+
+    .album-interval-field > span:first-child {
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .connection-log-panel .command-output {
+        padding: 10px;
+        font-size: clamp(9px, 2.9vw, 11px);
+        letter-spacing: 0;
     }
 
     .album-actions {

@@ -266,13 +266,21 @@
 
 .preserved-bluetooth-layout .connection-log-panel .command-output {
     order: 2;
-    min-height: 76px;
-    max-height: 116px;
-    padding: 10px 12px;
-    border: 1px solid var(--preserved-border);
-    border-radius: 8px;
-    background: #ffffff;
-    color: var(--preserved-text);
+    min-height: 96px;
+    max-height: 132px;
+    padding: 12px 14px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 18px;
+    background: #fafafc;
+    color: #333333;
+    font-size: 12px;
+    line-height: 1.43;
+    text-align: left;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: normal;
 }
 
 .preserved-bluetooth-layout .compact-upload-panel {
@@ -828,6 +836,89 @@
     padding: 7px 9px;
     font-size: 11px;
     white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .preserved-bluetooth-layout .connection-log-panel .command-output {
+        min-height: 92px;
+        max-height: 132px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-align: left;
+        white-space: normal;
+        word-break: break-word;
+        overflow-wrap: normal;
+        font-size: clamp(10px, 2.75vw, 12px);
+        line-height: 1.43;
+    }
+
+    .album-mode-area {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding-top: 14px;
+    }
+
+    .album-mode-area .album-header,
+    .album-mode-area .album-settings-grid,
+    .album-mode-area .album-actions {
+        display: grid;
+    }
+
+    .album-mode-area .album-header {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .album-mode-area .album-settings-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(150px, 1.25fr);
+        gap: 8px;
+    }
+
+    .album-mode-area .album-interval-field {
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: start;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .album-mode-area .album-input-with-unit {
+        display: grid;
+        grid-template-columns: 70px auto;
+        width: 118px;
+        min-width: 118px;
+    }
+
+    .album-mode-area .album-input-with-unit input {
+        width: 100%;
+        min-width: 0;
+        padding: 7px 6px 7px 9px;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .album-mode-area .album-input-with-unit > span:last-child {
+        padding: 0 8px 0 4px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 419px) {
+    .album-mode-area .album-settings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .album-mode-area .album-interval-field {
+        grid-template-columns: auto auto;
+    }
+
+    .album-mode-area .album-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 .epd-editor-panel {
