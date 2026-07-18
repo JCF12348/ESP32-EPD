@@ -1,0 +1,1274 @@
+:root {
+    --preserved-panel: #ffffff;
+    --preserved-control: #fafafc;
+    --preserved-log: #f5f7fa;
+    --preserved-border: #d2d2d7;
+    --preserved-text: #1d1d1f;
+    --preserved-muted: #6e6e73;
+    --preserved-blue: #0066cc;
+    --preserved-blue-soft: #edf5ff;
+}
+
+.preserved-bluetooth-layout .workbench-nav,
+.preserved-bluetooth-layout .device-context {
+    margin-left: -24px;
+    margin-right: -24px;
+}
+
+.preserved-bluetooth-layout .workbench-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 44px;
+    background: #000000;
+}
+
+.preserved-bluetooth-layout .workbench-nav-inner {
+    width: min(100%, 1080px);
+    height: 44px;
+    margin: 0 auto;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.preserved-bluetooth-layout .workbench-brand,
+.preserved-bluetooth-layout .workbench-links a {
+    color: rgba(255, 255, 255, 0.78);
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.preserved-bluetooth-layout .workbench-brand {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.preserved-bluetooth-layout .workbench-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.preserved-bluetooth-layout .workbench-transport {
+    display: none;
+}
+
+.preserved-bluetooth-layout .device-context {
+    position: sticky;
+    top: 44px;
+    z-index: 99;
+    height: 52px;
+    border-bottom: 1px solid var(--preserved-border);
+    background: rgba(13, 17, 23, 0.94);
+    backdrop-filter: saturate(180%) blur(24px);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+}
+
+.preserved-bluetooth-layout .developer-context-inner {
+    width: min(100%, 1080px);
+    height: 52px;
+    margin: 0 auto;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.preserved-bluetooth-layout .developer-context-title {
+    color: #f5f7fb;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.preserved-bluetooth-layout .developer-context-meta {
+    color: #a9b4c2;
+    font-size: 14px;
+}
+
+.preserved-bluetooth-layout .device-context .status-info[hidden] {
+    display: none !important;
+}
+
+.preserved-bluetooth-layout .top-panel {
+    grid-template-columns: auto minmax(0, 1fr);
+    padding-top: 20px;
+}
+
+.preserved-bluetooth-layout .device-binding-panel {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding: 18px 20px;
+    border: 1px solid var(--preserved-border);
+    border-radius: 18px;
+    background: var(--preserved-panel);
+    color: var(--preserved-text);
+}
+
+.preserved-bluetooth-layout .device-binding-panel:hover {
+    border-color: var(--preserved-border);
+    box-shadow: none;
+    transform: none;
+}
+
+.preserved-bluetooth-layout .device-binding-panel .section-title {
+    min-height: 0;
+    margin: 0 0 12px;
+    padding: 0;
+    border: 0;
+    color: var(--preserved-text);
+    font-size: 17px;
+}
+
+.preserved-bluetooth-layout .device-binding-panel .bluetooth-button-group {
+    display: grid;
+    grid-template-columns: auto auto minmax(360px, 420px) minmax(300px, 1fr);
+    align-items: center;
+    gap: 10px;
+}
+
+.preserved-bluetooth-layout .device-binding-panel .device-driver-setting {
+    min-width: 0;
+    margin: 0;
+    padding: 8px 12px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #d6e2ee;
+    border-radius: 10px;
+    background: var(--preserved-blue-soft);
+}
+
+.preserved-bluetooth-layout .device-binding-panel label {
+    margin: 0;
+    color: var(--preserved-muted);
+}
+
+.preserved-bluetooth-layout .device-binding-panel select {
+    width: 100%;
+    min-height: 40px;
+    margin: 0;
+    border-color: var(--preserved-border);
+    border-radius: 8px;
+    background-color: var(--preserved-control);
+    color: var(--preserved-text);
+}
+
+.preserved-bluetooth-layout .device-binding-panel .driver-command-input {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 76px;
+    justify-self: end;
+    width: min(100%, 390px);
+    gap: 8px;
+    margin: 0;
+}
+
+.preserved-bluetooth-layout .device-binding-panel .driver-command-input input,
+.preserved-bluetooth-layout .device-binding-panel .driver-command-input button {
+    width: 100%;
+    min-width: 0;
+}
+
+.preserved-bluetooth-layout .device-binding-panel .driver-command-input button {
+    min-width: 0;
+}
+
+.preserved-bluetooth-layout .device-binding-panel button {
+    min-width: 92px;
+    min-height: 34px;
+    padding: 8px 16px;
+    border: 1px solid var(--preserved-blue);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--preserved-blue);
+    text-indent: 0;
+    white-space: nowrap;
+}
+
+.preserved-bluetooth-layout .device-binding-panel button:hover:not(:disabled),
+.preserved-bluetooth-layout .device-binding-panel button:focus-visible:not(:disabled) {
+    border-color: var(--preserved-blue);
+    background: var(--preserved-blue);
+    color: #ffffff;
+}
+
+.preserved-bluetooth-layout .device-binding-panel #send-bluetooth,
+.preserved-bluetooth-layout .device-binding-panel #disconnect-bluetooth {
+    width: auto;
+    font-size: 14px;
+}
+
+.preserved-bluetooth-layout .device-binding-panel #send-bluetooth:not(:disabled) {
+    border-color: var(--preserved-blue);
+    background: var(--preserved-blue);
+    color: #ffffff;
+}
+
+.preserved-bluetooth-layout .device-binding-panel #scan-bluetooth {
+    border-color: var(--preserved-blue);
+    background: var(--preserved-blue);
+    color: #ffffff;
+}
+
+.preserved-bluetooth-layout .device-binding-panel button:disabled {
+    border-color: var(--preserved-border);
+    background: #ececef;
+    color: #98989d;
+}
+
+.preserved-bluetooth-layout .connection-log-panel {
+    margin-top: 12px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--preserved-border);
+    border-radius: 10px;
+    background: var(--preserved-log);
+}
+
+.preserved-bluetooth-layout .connection-log-panel .command-system-strip {
+    grid-column: 1 / -1;
+    order: 1;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    padding: 0 0 8px;
+    border-bottom: 1px solid var(--preserved-border);
+}
+
+.preserved-bluetooth-layout .connection-log-panel .command-system-strip .command-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 128px));
+    justify-content: end;
+    gap: 8px;
+}
+
+.preserved-bluetooth-layout .connection-log-panel .command-log-header {
+    order: 3;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--preserved-text);
+}
+
+.preserved-bluetooth-layout .connection-log-panel .command-log-header > span {
+    display: none;
+}
+
+.preserved-bluetooth-layout .connection-log-panel .command-output {
+    order: 2;
+    min-height: 76px;
+    max-height: 116px;
+    padding: 10px 12px;
+    border: 1px solid var(--preserved-border);
+    border-radius: 8px;
+    background: #ffffff;
+    color: var(--preserved-text);
+}
+
+.preserved-bluetooth-layout .compact-upload-panel {
+    width: auto;
+    min-width: 0;
+    height: auto;
+    padding: 0;
+    justify-content: center;
+    align-self: center;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.preserved-bluetooth-layout .compact-upload-panel:hover {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+}
+
+.preserved-bluetooth-layout .compact-upload-panel .section-title {
+    display: none;
+}
+
+.preserved-bluetooth-layout .compact-upload-button {
+    width: auto;
+    min-height: 44px;
+    margin: 0;
+    padding: 10px 18px;
+    display: inline-flex;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    background: #ffffff;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.preserved-bluetooth-layout .compact-upload-button:hover,
+.preserved-bluetooth-layout .compact-upload-button:focus-visible {
+    border-color: var(--primary-hover);
+    background: var(--primary);
+    color: #ffffff;
+}
+
+.preserved-bluetooth-layout .compact-upload-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+}
+
+.preserved-bluetooth-layout .compact-device-images {
+    grid-column: 1 / -1;
+    min-width: 0;
+    height: auto;
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: 124px auto minmax(180px, 1fr) auto minmax(220px, 0.75fr);
+    align-items: center;
+    gap: 12px;
+}
+
+.preserved-bluetooth-layout .compact-device-images .section-title {
+    height: 44px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    border: 0;
+    align-self: center;
+    white-space: nowrap;
+}
+
+.preserved-bluetooth-layout .compact-device-images .bluetooth-button-group {
+    margin: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+}
+
+.preserved-bluetooth-layout .compact-device-images .bluetooth-button-group button {
+    width: auto;
+    min-height: 38px;
+    padding: 8px 12px;
+}
+
+.preserved-bluetooth-layout .compact-device-images .device-storage {
+    margin: 0;
+    padding: 8px 12px;
+}
+
+.preserved-bluetooth-layout .compact-device-images .image-export-tools {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--preserved-border);
+}
+
+.preserved-bluetooth-layout .compact-device-images .image-export-title {
+    color: var(--preserved-text);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.preserved-bluetooth-layout .compact-device-images .export-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 160px));
+    justify-content: start;
+    gap: 10px;
+}
+
+@media (max-width: 1020px) {
+    .preserved-bluetooth-layout .top-panel {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .preserved-bluetooth-layout .device-binding-panel {
+        grid-column: 1;
+    }
+
+    .preserved-bluetooth-layout .compact-upload-panel {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .preserved-bluetooth-layout .compact-upload-button {
+        width: 100%;
+    }
+
+    .preserved-bluetooth-layout .compact-device-images {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .preserved-bluetooth-layout .compact-device-images .image-export-tools {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .preserved-bluetooth-layout .workbench-nav,
+    .preserved-bluetooth-layout .device-context {
+        margin-left: -22px;
+        margin-right: -22px;
+    }
+
+    .preserved-bluetooth-layout .developer-context-meta {
+        display: none;
+    }
+
+    .preserved-bluetooth-layout .device-binding-panel .bluetooth-button-group {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .preserved-bluetooth-layout .device-binding-panel .device-driver-setting {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .preserved-bluetooth-layout .device-binding-panel .driver-command-input,
+    .preserved-bluetooth-layout .connection-log-panel .command-system-strip,
+    .preserved-bluetooth-layout .compact-device-images .export-group {
+        grid-template-columns: 1fr;
+    }
+
+    .preserved-bluetooth-layout .device-binding-panel .bluetooth-button-group > button {
+        width: 100%;
+    }
+
+    .preserved-bluetooth-layout .connection-log-panel {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .preserved-bluetooth-layout .connection-log-panel .command-log-header {
+        order: 1;
+        justify-content: flex-end;
+    }
+
+    .preserved-bluetooth-layout .connection-log-panel .command-output {
+        order: 2;
+    }
+
+}
+
+/* Compact calendar editor: common choices first, specialist font controls on demand. */
+.calendar-style-panel {
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.calendar-style-intro {
+    min-height: 0;
+    margin: 0 0 10px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.calendar-style-title {
+    font-size: 15px;
+}
+
+.calendar-style-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: end;
+    gap: 8px 10px;
+}
+
+.calendar-mode-actions {
+    gap: 4px;
+}
+
+.calendar-mode-actions .calendar-preview-tab,
+.calendar-mode-actions .calendar-action-tab {
+    border-color: transparent;
+    transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.calendar-mode-actions .calendar-preview-tab.active,
+.calendar-mode-actions .calendar-preview-tab[aria-selected="true"],
+.calendar-mode-actions .calendar-action-tab[aria-pressed="true"],
+.calendar-mode-actions .calendar-style-tab[aria-expanded="true"] {
+    border-color: var(--preserved-blue);
+    background: #ffffff;
+    color: var(--preserved-blue);
+    box-shadow: inset 0 0 0 1px rgba(0, 102, 204, 0.12);
+}
+
+.calendar-mode-actions .calendar-action-tab:not([aria-pressed="true"]):not([aria-expanded="true"]):hover,
+.calendar-mode-actions .calendar-action-tab:not([aria-pressed="true"]):not([aria-expanded="true"]):focus-visible,
+.calendar-mode-actions .calendar-preview-tab:not(.active):hover,
+.calendar-mode-actions .calendar-preview-tab:not(.active):focus-visible {
+    border-color: #b8cce2;
+    background: #f7fbff;
+    color: var(--preserved-blue);
+}
+
+.calendar-style-panel select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 32px;
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%236e6e73' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-position: right 12px center;
+    background-size: 12px 8px;
+    background-repeat: no-repeat;
+}
+
+.calendar-style-grid .calendar-input-group > input,
+.calendar-style-grid .calendar-input-group > select,
+.calendar-style-check span {
+    min-height: 44px;
+}
+
+.calendar-advanced-settings {
+    margin-top: 8px;
+    border-top: 1px solid var(--preserved-border);
+}
+
+.calendar-advanced-settings summary {
+    padding: 9px 0 2px;
+    color: var(--preserved-muted);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.calendar-advanced-grid {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.calendar-style-size-section {
+    margin-top: 10px;
+    padding: 10px 0 0;
+    border: 0;
+    border-top: 1px solid var(--preserved-border);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.calendar-style-size-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.calendar-style-size-header .calendar-style-subtitle {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.calendar-style-size-header .calendar-size-reset {
+    width: auto;
+    min-height: 28px;
+    margin: 0;
+    padding: 4px 9px;
+    border: 1px solid var(--preserved-border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--preserved-muted);
+    font-size: 11px;
+}
+
+.calendar-size-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.calendar-size-control {
+    min-width: 0;
+    min-height: 54px;
+    padding: 7px 0 8px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 5px 10px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.calendar-size-control + .calendar-size-control {
+    border-top: 1px solid #eef1f5;
+}
+
+.calendar-size-meta {
+    min-width: 0;
+}
+
+.calendar-size-name {
+    overflow: hidden;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calendar-size-hint {
+    display: none;
+}
+
+.calendar-size-control input[type="range"] {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+}
+
+.calendar-size-value {
+    min-width: 38px;
+    color: var(--preserved-blue);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    text-align: right;
+}
+
+.calendar-style-check {
+    min-height: 44px;
+    margin-top: 0;
+    padding: 0;
+    display: grid;
+    align-items: stretch;
+    gap: 4px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.calendar-style-check::before {
+    content: "选项";
+    visibility: hidden;
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+.calendar-style-check input[type="checkbox"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.calendar-style-check span {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(18px);
+    border: 1px solid var(--preserved-border);
+    border-radius: 8px;
+    background: #ffffff;
+    color: var(--preserved-muted);
+    font-size: 12px;
+    font-weight: 600;
+    transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.calendar-style-check span::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    margin-right: 7px;
+    border-radius: 50%;
+    background: #c7c7cc;
+}
+
+.calendar-style-check input[type="checkbox"]:checked + span {
+    border-color: var(--preserved-blue);
+    background: var(--preserved-blue-soft);
+    color: var(--preserved-blue);
+    box-shadow: inset 0 0 0 1px rgba(0, 102, 204, 0.08);
+}
+
+.calendar-style-check input[type="checkbox"]:checked + span::before {
+    background: var(--preserved-blue);
+}
+
+.calendar-style-check input[type="checkbox"]:focus-visible {
+    outline: 0;
+}
+
+.calendar-style-check input[type="checkbox"]:focus-visible + span {
+    outline: 2px solid var(--preserved-blue);
+    outline-offset: 2px;
+}
+
+.calendar-style-note {
+    display: none;
+}
+
+.controls-panel.calendar-style-active > :not(.calendar-style-panel) {
+    display: none;
+}
+
+.controls-panel.calendar-style-active .calendar-style-panel {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(18px, 2.4vh, 28px);
+    border: 0;
+    background: transparent;
+}
+
+.controls-panel.calendar-style-active .calendar-style-intro,
+.controls-panel.calendar-style-active .calendar-advanced-settings,
+.controls-panel.calendar-style-active .calendar-style-size-section {
+    margin: 0;
+}
+
+.controls-panel.calendar-style-active .calendar-style-actions {
+    margin-top: auto;
+}
+
+/* Album playback is a toolbar on desktop. */
+.album-mode-area {
+    display: grid;
+    grid-template-columns: auto auto minmax(132px, 0.7fr) minmax(132px, 1fr) auto auto;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 0 0;
+}
+
+.album-mode-area .album-header,
+.album-mode-area .album-settings-grid,
+.album-mode-area .album-actions {
+    display: contents;
+}
+
+.album-mode-area .album-title,
+.album-mode-area .album-playback-status,
+.album-mode-area .album-interval-field,
+.album-mode-area .album-order-field,
+.album-mode-area .album-actions button {
+    min-width: 0;
+    margin: 0;
+}
+
+.album-mode-area .album-title {
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.album-mode-area .album-playback-status {
+    padding: 5px 7px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.album-mode-area .album-interval-field {
+    padding: 6px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.album-mode-area .album-input-with-unit {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.album-mode-area .album-input-with-unit input {
+    width: 100%;
+    min-width: 64px;
+    padding: 5px;
+}
+
+.album-mode-area .album-order-field {
+    padding: 5px;
+    align-self: center;
+}
+
+.album-mode-area .album-order-field legend {
+    display: none;
+}
+
+.album-mode-area .album-order-options span {
+    padding: 6px 7px;
+    font-size: 10px;
+}
+
+.album-mode-area .album-actions button {
+    width: auto;
+    min-height: 34px;
+    padding: 7px 9px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.epd-editor-panel {
+    margin: 10px 0 12px;
+    padding: 8px 0 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+.epd-editor-toolbar,
+.epd-tool-settings {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.epd-editor-toolbar {
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 10px;
+}
+
+.epd-tool-button,
+.epd-tool-settings button {
+    min-height: 34px;
+    padding: 7px 11px;
+    border: 1px solid var(--preserved-border);
+    border-radius: 8px;
+    background: #f8fafc;
+    color: var(--preserved-text);
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.epd-tool-button {
+    width: 60px;
+    height: 60px;
+    min-height: 60px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f9fafc;
+    border-color: #e1e5ea;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85);
+}
+
+.epd-tool-button:hover,
+.epd-tool-settings button:hover {
+    border-color: var(--preserved-blue);
+    background: var(--preserved-blue);
+    color: #ffffff;
+}
+
+.epd-tool-button:hover > span[aria-hidden="true"],
+.epd-tool-button:focus-visible > span[aria-hidden="true"] {
+    color: #ffffff;
+}
+
+.epd-tool-button:focus-visible,
+.epd-tool-settings button:focus-visible {
+    outline: 2px solid rgba(0, 102, 204, 0.28);
+    outline-offset: 2px;
+}
+
+.epd-tool-button.active {
+    border-color: var(--preserved-blue);
+    background: #eef6ff;
+    color: var(--preserved-blue);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.12);
+}
+
+.epd-tool-button > span[aria-hidden="true"] {
+    min-width: 0;
+    display: inline-grid;
+    place-items: center;
+    font-size: 25px;
+    line-height: 1;
+}
+
+.epd-tool-button[data-editor-tool="text"] > span[aria-hidden="true"],
+.epd-tool-button[data-editor-tool="todo"] > span[aria-hidden="true"],
+.epd-tool-button[data-editor-tool="matter"] > span[aria-hidden="true"] {
+    font-size: 28px;
+    font-family: "Times New Roman", "SimSun", serif;
+}
+
+.epd-editor-settings {
+    min-height: 0;
+}
+
+.epd-editor-settings-anchor {
+    display: none;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e6edf5;
+}
+
+.epd-editor-settings-anchor.is-visible {
+    display: block;
+}
+
+.epd-editor-settings-anchor::before {
+    content: "功能设置";
+    display: block;
+    margin-bottom: 10px;
+    color: var(--preserved-text);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.epd-editor-panel > .epd-editor-settings {
+    display: none;
+}
+
+.controls-panel .epd-editor-settings {
+    display: block;
+}
+
+body[data-epd-paint-settings-visible="true"] .common-adjustments-section,
+body[data-epd-paint-settings-visible="true"] .processing-mode-section {
+    display: none;
+}
+
+.epd-tool-settings {
+    display: none;
+    padding: 10px;
+    border: 1px solid #dfe8f2;
+    border-radius: 12px;
+    background: #fbfdff;
+}
+
+.epd-tool-settings.is-open {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.epd-tool-settings > * {
+    min-width: 0;
+}
+
+.epd-tool-settings button,
+.epd-tool-settings select,
+.epd-tool-settings input[type="number"],
+.epd-tool-settings input[type="text"] {
+    width: 100%;
+    margin: 0;
+}
+
+.epd-tool-settings button {
+    min-width: 0;
+    white-space: nowrap;
+}
+
+#epd-editor-settings-anchor button.active,
+#epd-editor-settings-anchor #brush-eraser-toggle.active {
+    border-color: #0066cc;
+    background: #0066cc;
+    color: #ffffff;
+}
+
+.epd-tool-settings label {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 6px;
+    color: var(--preserved-muted);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.epd-tool-settings select,
+.epd-tool-settings input[type="number"],
+.epd-tool-settings input[type="text"] {
+    min-height: 34px;
+    padding: 6px 10px;
+    border: 1px solid var(--preserved-border);
+    border-radius: 8px;
+    background: #ffffff;
+    color: var(--preserved-text);
+}
+
+.epd-tool-settings input[type="range"] {
+    width: 100%;
+    min-width: 0;
+}
+
+.epd-tool-settings .epd-eraser-size {
+    padding-left: 0;
+    border-left: 0;
+}
+
+.epd-tool-settings .epd-eraser-size input[type="range"] {
+    width: 100%;
+}
+
+.epd-editor-wide {
+    width: 100%;
+}
+
+.epd-editor-wide input {
+    width: 100%;
+}
+
+.epd-tool-settings textarea {
+    width: 100%;
+    min-height: 64px;
+    padding: 8px 10px;
+    border: 1px solid var(--preserved-border);
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 12px;
+}
+
+.epd-tool-settings[data-settings-for="schedule"] {
+    display: none;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    gap: 8px;
+}
+
+.epd-tool-settings[data-settings-for="schedule"].is-open {
+    display: grid;
+}
+
+.epd-tool-settings[data-settings-for="schedule"] label {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 4px;
+}
+
+.epd-tool-settings[data-settings-for="schedule"] input[type="number"] {
+    width: 100%;
+    min-width: 54px;
+    text-align: center;
+    color: var(--preserved-text);
+    background: #ffffff;
+}
+
+.epd-tool-settings[data-settings-for="schedule"] select {
+    width: 100%;
+    min-width: 0;
+}
+
+.epd-tool-settings[data-settings-for="schedule"] textarea {
+    grid-column: 1 / -1;
+    min-height: 42px;
+    min-width: 0;
+}
+
+.epd-tool-settings[data-settings-for="schedule"] #schedule-input-confirm-btn,
+.epd-tool-settings[data-settings-for="schedule"] #schedule-input-cancel-btn {
+    min-width: 58px;
+}
+
+.epd-tool-settings[data-settings-for="matter"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+}
+
+.epd-tool-settings[data-settings-for="matter"] > button {
+    min-width: 0;
+}
+
+.matter-editor {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    overflow: visible;
+    padding-bottom: 2px;
+}
+
+.matter-section {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--preserved-border);
+    border-radius: 8px;
+    background: #fff;
+}
+
+.matter-section-title {
+    padding: 7px 9px;
+    border-bottom: 1px solid var(--preserved-border);
+    background: #f6f8fb;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.matter-editor table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.matter-editor thead {
+    display: none;
+}
+
+.matter-editor tbody,
+.matter-editor tr {
+    display: grid;
+    width: 100%;
+}
+
+.matter-editor tbody {
+    gap: 6px;
+    padding: 7px;
+}
+
+.matter-editor tr {
+    grid-template-columns: minmax(0, 1fr) minmax(64px, 0.55fr) minmax(88px, 0.9fr) 36px;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    border: 1px solid #eef2f6;
+    border-radius: 8px;
+    background: #fbfdff;
+}
+
+#matter-todo-table tr,
+#matter-schedule-table tr {
+    grid-template-columns: minmax(0, 1fr) minmax(72px, 0.7fr) 36px;
+}
+
+.matter-editor th,
+.matter-editor td {
+    min-width: 0;
+    padding: 0;
+    border-bottom: 0;
+    font-size: 11px;
+}
+
+.matter-editor input,
+.matter-editor select {
+    width: 100%;
+    min-width: 0;
+    min-height: 28px;
+    padding: 4px 6px;
+    font-size: 12px;
+    line-height: 1.25;
+}
+
+#matter-limit-table input[type="date"] {
+    min-width: 0;
+}
+
+#matter-limit-table input[type="number"] {
+    min-width: 0;
+}
+
+#matter-todo-table select {
+    min-width: 0;
+}
+
+.matter-editor th:last-child,
+.matter-editor td:last-child {
+    width: 36px;
+}
+
+.matter-editor .matter-delete {
+    min-width: 0;
+    width: 36px;
+    min-height: 28px;
+    padding: 3px 0;
+    border-color: #d8e1ec;
+    background: #ffffff;
+    color: #b42318;
+}
+
+.epd-editor-hint {
+    color: var(--preserved-muted);
+    font-size: 12px;
+}
+
+#image-canvas.epd-editor-draw-cursor {
+    cursor: crosshair;
+}
+
+#image-canvas.epd-editor-text-cursor {
+    cursor: text;
+}
+
+@media (max-width: 860px) {
+    .controls-panel.calendar-style-active .calendar-style-panel {
+        height: auto;
+        gap: 14px;
+    }
+
+    .controls-panel.calendar-style-active .calendar-style-actions {
+        margin-top: 0;
+    }
+
+    .album-mode-area {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+    }
+
+    .album-mode-area .album-settings-grid,
+    .album-mode-area .album-actions {
+        display: grid;
+        grid-column: 1 / -1;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .calendar-size-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .calendar-style-grid,
+    .calendar-advanced-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .epd-editor-toolbar {
+        gap: 9px;
+    }
+
+    .epd-tool-button {
+        width: 50px;
+        height: 50px;
+        min-height: 50px;
+    }
+
+    .epd-tool-settings[data-settings-for="schedule"].is-open {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .epd-tool-settings[data-settings-for="schedule"] textarea {
+        grid-column: 1 / -1;
+    }
+
+    .matter-editor {
+        grid-template-columns: 1fr;
+    }
+}

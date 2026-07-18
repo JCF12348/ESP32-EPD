@@ -1,0 +1,642 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>墨水屏日历</title>
+    <link rel="stylesheet" href="css/main.css?v=2026071609">
+    <link rel="stylesheet" href="css/developer-mode.css?v=2026071708">
+</head>
+
+<body class="preserved-bluetooth-layout">
+    <!-- 传输进度弹窗 -->
+    <div id="transfer-dialog">
+        <div class="transfer-dialog-content">
+            <div class="transfer-title" id="transfer-title">📤 蓝牙数据传输中</div>
+            <div class="transfer-info">
+                <div class="transfer-info-row">
+                    <span class="transfer-info-label">传输进度：</span>
+                    <span class="transfer-info-value" id="dialog-progress">0%</span>
+                </div>
+                <div class="transfer-info-row">
+                    <span class="transfer-info-label">已发送 / 总大小：</span>
+                    <span class="transfer-info-value" id="dialog-bytes">0 / 0 字节</span>
+                </div>
+                <div class="transfer-info-row">
+                    <span class="transfer-info-label">传输速度：</span>
+                    <span class="transfer-info-value" id="dialog-speed">0 KB/s</span>
+                </div>
+                <div class="transfer-info-row">
+                    <span class="transfer-info-label">已用时间：</span>
+                    <span class="transfer-info-value" id="dialog-elapsed">00:00</span>
+                </div>
+                <div class="transfer-info-row">
+                    <span class="transfer-info-label">预计剩余：</span>
+                    <span class="transfer-info-value" id="dialog-remaining">--:--</span>
+                </div>
+            </div>
+            <div class="progress-container transfer-progress-container">
+                <div id="dialog-progress-bar" class="progress-bar" style="width: 0%"></div>
+            </div>
+            <button type="button" class="transfer-cancel-btn" id="cancel-transfer-btn">取消传输</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <header class="workbench-nav">
+            <div class="workbench-nav-inner">
+                <a class="workbench-brand" href="#">EPD</a>
+                <nav class="workbench-links" aria-label="全局导航">
+                    <a href="#bluetooth-panel">蓝牙</a>
+                    <a href="#device-panel">设备</a>
+                    <a href="#image-panel">传图</a>
+                </nav>
+                <span class="workbench-transport">Web Bluetooth</span>
+            </div>
+        </header>
+
+        <div class="device-context" aria-label="系统状态">
+            <div class="developer-context-inner">
+                <span class="developer-context-title">墨水屏日历</span>
+                <span class="developer-context-meta">SE0398NZ07_new_A1 · Web Bluetooth</span>
+            </div>
+            <div class="status-info" hidden aria-hidden="true">
+                <div class="status-item"><span class="status-label">画布</span><span id="current-canvas-size" class="status-value">768×552</span></div>
+                <div class="status-item"><span class="status-label">模式</span><span id="current-mode" class="status-value">黑白模式</span></div>
+                <div class="status-item"><span class="status-label">抖动</span><span id="current-algorithm" class="status-value">Floyd-Steinberg</span></div>
+                <div class="status-item"><span class="status-label">图像</span><span id="image-status" class="status-value">未上传</span></div>
+                <div class="status-item"><span class="status-label">蓝牙</span><span id="bluetooth-status" class="status-value">未连接</span></div>
+                <div class="status-item"><span class="status-label">设备</span><span id="device-model" class="status-value">未连接</span></div>
+            </div>
+        </div>
+
+        <!-- 顶部面板 -->
+        <div class="top-panel">
+            <div class="bluetooth-panel device-binding-panel" id="bluetooth-panel">
+                <h2 class="section-title">蓝牙连接</h2>
+                <div class="bluetooth-button-group">
+                    <button id="scan-bluetooth">搜索蓝牙设备</button>
+                    <button id="send-bluetooth">蓝牙发送</button>
+                    <button id="disconnect-bluetooth">断开连接</button>
+                    <div class="device-driver-setting">
+                        <label for="driver-select">屏幕驱动</label>
+                        <select id="driver-select">
+                        <option value="EPD_029_BWRY">2.9寸（四色，EPD_029_168x384）</option>
+                        <option value="EPD_HS350_BWR">3.5寸（三色，HS350_184x384）</option>
+                        <option value="EPD_GDEM037F51_370_BWRY">3.7寸（四色，GDEM037F51_416x240）</option>
+                        <option value="EPD_GDEY037Z03_370_BWR">3.7寸（三色，GDEY037Z03_416x240）</option>
+                        <option value="EPD_YS4370JS0C3_370_BWR">3.7寸（三色，YS4370JS0C3_416x240）</option>
+                        <option value="EPD_LG370_370_BWR">3.7寸（三色，LG370_416x240）</option>
+                        <option value="EPD_KEGM038701E01_J665_387_BWRY">3.87寸（四色，KEGM038701E01_J665_800x552）</option>
+                        <option value="SE0398NZ07-new-A1" selected>3.98寸（四色，SE0398NZ07_new_A1_768x552）</option>
+                        <option value="SE0398NZ07A1">3.98寸（四色，SE0398NZ07A1_768x552）</option>
+                        <option value="SE0398NZ07A0">3.98寸（四色，SE0398NZ07A0_768x552）</option>
+                        <option value="EPD_UC8176_420_BW">4.2寸（黑白，UC8176_400x300）</option>
+                        <option value="EPD_UC8176_420_BWR">4.2寸（三色，UC8176_400x300）</option>
+                        <option value="EPD_SSD1619_420_BWR">4.2寸（三色，SSD1619_400x300）</option>
+                        <option value="EPD_SSD1619_420_BW">4.2寸（黑白，SSD1619_400x300）</option>
+                        <option value="EPD_JD79668_420_BWRY">4.2寸（四色，JD79668_400x300）</option>
+                        <option value="EPD_420_BWRY">4.2寸（四色，EPD_420_400x300）</option>
+                        <option value="EL044TS2">4.4寸（四色，EL044TS2_512x368）</option>
+                        <option value="HE583A04A1">5.83寸（三色，HE583A04A1_648x480）</option>
+                        <option value="EL073TF1">7.3寸（六色，EL073TF1_800x480）</option>
+                        <option value="EPD_UC8179_750_BW">7.5寸（黑白，UC8179_800x480）</option>
+                        <option value="EPD_UC8179_750_BWR">7.5寸（三色，UC8179_800x480）</option>
+                        <option value="EPD_UC8159_750_LOW_BW">7.5寸,低分（黑白，UC8159_640x384）</option>
+                        <option value="EPD_UC8159_750_LOW_BWR">7.5寸,低分（三色，UC8159_640x384）</option>
+                        <option value="EPD_SSD1677_750_HD_BW">7.5寸（黑白，SSD1677_880x528）</option>
+                        <option value="EPD_SSD1677_750_HD_BWR">7.5寸（三色，SSD1677_880x528）</option>
+                        <option value="EPD_JD79668_750_BWRY">7.5寸（四色，JD79668_800x480）</option>
+                        <option value="EL081TS2">8.1寸（四色，EL081TS2_1024x576）</option>
+                        <option value="HSE097SE">9.7寸（四色，HSE097SE_960x672）</option>
+                        <option value="EPD_CSOT970_970_BWRY">9.7寸（四色，CSOT970_960x680）</option>
+                        <option value="EPD_970_BWRY">9.7寸（四色，EPD_970_960x680）</option>
+                        </select>
+                    </div>
+                    <div class="driver-command-input command-input-group">
+                        <input type="text" id="command-input" placeholder="输入命令（如 STATUS、HELP、LIST ALL）" autocomplete="off">
+                        <button id="send-command-btn" disabled>发送</button>
+                    </div>
+                </div>
+                <div class="connection-log-panel" aria-label="连接日志">
+                    <div class="command-system-strip command-group command-system-group">
+                        <div class="command-group-label">系统命令</div>
+                        <div class="command-buttons-grid">
+                            <button class="cmd-btn command-caution" data-cmd="RESET" title="重启设备并断开当前连接">重启设备</button>
+                            <button class="cmd-btn command-caution" data-cmd="SLEEP" title="进入深度睡眠并断开当前连接">深度睡眠</button>
+                            <button class="cmd-btn command-danger" data-cmd="FORMAT" title="清空SPIFFS中的全部文件并重启设备">格式化存储</button>
+                        </div>
+                    </div>
+                    <div class="command-log-header">
+                        <span>连接日志</span>
+                        <button id="clear-command-log" class="command-clear-btn">清空日志</button>
+                    </div>
+                    <div id="command-output-log" class="command-output">
+                        [系统] 等待蓝牙连接...
+                    </div>
+                </div>
+            </div>
+
+            <div class="bluetooth-panel device-images-panel compact-device-images" id="image-panel">
+                <button type="button" id="upload-area" class="upload-area compact-upload-button">
+                    <svg class="compact-upload-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <path d="m17 8-5-5-5 5"></path>
+                        <path d="M12 3v12"></path>
+                    </svg>
+                    <span>上传图片</span>
+                </button>
+                <input type="file" id="image-upload" accept="image/*" style="display: none;" />
+                <h2 class="section-title">设备图片列表</h2>
+                <div class="device-image-picker" id="device-image-picker">
+                    <button type="button" id="image-picker-button" aria-haspopup="listbox" aria-expanded="false">未连接设备</button>
+                    <div class="image-picker-menu" id="image-picker-menu" role="listbox" hidden></div>
+                    <select id="image-list-select" tabindex="-1" aria-hidden="true">
+                        <option value="">未连接设备</option>
+                    </select>
+                </div>
+                <div class="bluetooth-button-group">
+                    <button id="refresh-image-list">刷新列表</button>
+                    <button id="show-selected-image">显示选中</button>
+                </div>
+                <div class="device-storage" id="device-storage" aria-live="polite">
+                    <div class="storage-summary">
+                        <span>剩余空间</span>
+                        <strong id="storage-free">--</strong>
+                    </div>
+                    <div class="storage-track"><div class="storage-fill" id="storage-fill"></div></div>
+                    <div class="storage-meta">
+                        <span>还可存 <strong id="storage-image-count">--</strong> 张</span>
+                        <span id="storage-image-size">单张 --</span>
+                    </div>
+                </div>
+                <div class="image-export-tools">
+                    <div class="image-export-title">💾 导出图像数据</div>
+                    <div class="export-group">
+                        <button id="export-c-array">导出C数组</button>
+                        <button id="export-binary">导出二进制文件</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 预览与控制（预览区域更大） -->
+        <div class="preview-and-controls">
+            <div class="preview-panel" id="device-panel">
+                <h2 class="section-title">显示预览</h2>
+
+                <!-- 模式与图像方向工具栏 -->
+                <div class="preview-mode-toolbar">
+                    <div class="mode-selector" id="mode-selector">
+                        <button class="mode-btn active" data-mode="image" data-tooltip="上传、处理并预览要发送到墨水屏的图片" title="图像模式：上传、处理并预览图片">🖼️ 图像模式</button>
+                        <button class="mode-btn" data-mode="calendar-clock" data-tooltip="模拟预览日历或时钟画面，并同步显示到设备" title="日历时钟：模拟预览并同步到设备">📅 日历时钟</button>
+                        <button class="mode-btn mode-action-btn" id="clear-display" data-tooltip="清空设备画面，同时停止日历时钟和相册自动播放" title="清除屏幕：清空设备画面并停止自动播放">清除屏幕</button>
+                    </div>
+                    <div class="preview-transform-controls" role="group" aria-label="图像方向">
+                        <span class="preview-transform-label">图像方向</span>
+                        <button id="rotate-left" type="button" title="向左旋转" aria-label="向左旋转">↺</button>
+                        <button id="rotate-right" type="button" title="向右旋转" aria-label="向右旋转">↻</button>
+                        <button id="reset-transform" type="button" title="重置位置、缩放与旋转" aria-label="重置位置、缩放与旋转">⟲</button>
+                        <button id="clear-canvas" type="button" title="仅清除主预览画布，保留设备图片列表及其缓存预览" aria-label="清除主预览画布">⌫</button>
+                    </div>
+                </div>
+
+                <!-- 图像模式界面 -->
+                <div id="image-mode-interface">
+                    <div style="text-align: center; margin-bottom: 12px;">
+                        <div class="canvas-wrapper">
+                            <canvas id="image-canvas"></canvas>
+                            <canvas class="hover-preview-canvas" id="hover-preview-canvas" hidden></canvas>
+                            <div class="preview-hover-message" id="preview-hover-message" hidden>尚无本地预览，点击文件名后将从设备读取并建立缓存。</div>
+                            <div id="canvas-size-indicator">768×552</div>
+                        </div>
+                    </div>
+                    <div class="epd-editor-panel" id="epd-editor-panel" aria-label="上位机编辑工具">
+                        <div class="epd-editor-toolbar" role="toolbar" aria-label="画布编辑工具">
+                            <button type="button" class="epd-tool-button active" data-editor-tool="brush" title="画笔 / 橡皮擦" aria-label="画笔 / 橡皮擦"><span aria-hidden="true">✏️</span></button>
+                            <button type="button" class="epd-tool-button" data-editor-tool="text" title="文字" aria-label="文字"><span aria-hidden="true">T</span></button>
+                            <button type="button" class="epd-tool-button" data-editor-tool="todo" title="待办" aria-label="待办"><span aria-hidden="true">待</span></button>
+                            <button type="button" class="epd-tool-button" data-editor-tool="schedule" title="课表" aria-label="课表"><span aria-hidden="true">🗓️</span></button>
+                            <button type="button" class="epd-tool-button" data-editor-tool="matter" title="事项" aria-label="事项"><span aria-hidden="true">事</span></button>
+                        </div>
+                        <div class="epd-editor-settings" id="epd-editor-settings">
+                            <div class="epd-tool-settings is-open" data-settings-for="brush">
+                                <label>颜色
+                                    <select id="brush-color">
+                                        <option value="#000000">黑色</option>
+                                        <option value="#ff0000">红色</option>
+                                        <option value="#ffff00">黄色</option>
+                                        <option value="#00ff00">绿色</option>
+                                        <option value="#0000ff">蓝色</option>
+                                        <option value="#ffffff">白色</option>
+                                    </select>
+                                </label>
+                                <span class="epd-inline-controls brush-size-controls">
+                                    <label>粗细 <input type="number" id="brush-size" min="1" max="100" value="2"></label>
+                                    <input type="range" id="brush-size-range" min="1" max="100" value="2">
+                                </span>
+                                <button type="button" id="brush-eraser-toggle" title="在画笔里切换橡皮擦">橡皮擦</button>
+                                <label class="epd-eraser-size">擦除大小
+                                    <input type="range" id="eraser-size-range" min="4" max="100" value="18">
+                                </label>
+                                <button type="button" id="undo-btn" title="撤销">撤销</button>
+                                <button type="button" id="redo-btn" title="重做">重做</button>
+                                <button type="button" id="epd-editor-clear" title="清空编辑">清空</button>
+                            </div>
+                            <div class="epd-tool-settings" data-settings-for="text">
+                                <label>字体
+                                    <select id="font-family">
+                                        <option value="Arial">Arial</option>
+                                        <option value="sans-serif">Sans-serif</option>
+                                        <option value="monospace">Monospace</option>
+                                        <option value="SimSun">宋体</option>
+                                        <option value="SimHei">黑体</option>
+                                        <option value="Microsoft YaHei" selected>微软雅黑</option>
+                                        <option value="KaiTi">楷体</option>
+                                        <option value="FangSong">仿宋</option>
+                                        <option value="PingFang SC">苹方</option>
+                                        <option value="Source Han Sans CN">思源黑体</option>
+                                    </select>
+                                </label>
+                                <span class="epd-inline-controls text-size-controls">
+                                    <label>大小 <input type="number" id="font-size" min="1" max="140" value="28"></label>
+                                    <input type="range" id="font-size-range" min="1" max="140" value="28">
+                                </span>
+                                <label class="epd-editor-wide">
+                                    <input type="text" id="text-input" placeholder="输入文字，点画布放置/拖动调整">
+                                </label>
+                                <button type="button" id="text-bold" title="粗体">粗体</button>
+                                <button type="button" id="text-italic" title="斜体">斜体</button>
+                                <button type="button" id="add-text-btn">添加文字</button>
+                            </div>
+                            <div class="epd-tool-settings" data-settings-for="todo">
+                                <span class="epd-inline-controls">
+                                    <label>大小 <input type="number" id="todo-font-size" min="8" max="100" value="20"></label>
+                                    <input type="range" id="todo-font-size-range" min="8" max="100" value="20">
+                                </span>
+                                <label class="epd-editor-wide">
+                                    <input type="text" id="todo-input" placeholder="输入待办事项，点添加后可拖动">
+                                </label>
+                                <select id="todo-color">
+                                    <option value="#000000">黑色</option>
+                                    <option value="#ff0000">红色</option>
+                                    <option value="#ffff00">黄色</option>
+                                    <option value="#00ff00">绿色</option>
+                                    <option value="#0000ff">蓝色</option>
+                                </select>
+                                <button type="button" id="todo-bold" title="粗体">粗体</button>
+                                <button type="button" id="todo-italic" title="斜体">斜体</button>
+                                <button type="button" id="toggle-todo-delete-btn">删除键</button>
+                                <button type="button" id="add-todo-btn">添加待办</button>
+                            </div>
+                            <div class="epd-tool-settings" data-settings-for="schedule">
+                                <label>天数 <input type="number" id="schedule-days" value="5" min="1" max="7"></label>
+                                <label>节数 <input type="number" id="schedule-classes" value="6" min="1" max="12"></label>
+                                <label>字号 <input type="number" id="schedule-font-size" value="12" min="6" max="48"></label>
+                                <button type="button" id="schedule-font-decrease-btn">-</button>
+                                <button type="button" id="schedule-font-increase-btn">+</button>
+                                <select id="schedule-color">
+                                    <option value="#000000">黑色</option>
+                                    <option value="#ff0000">红色</option>
+                                    <option value="#ffff00">黄色</option>
+                                    <option value="#0000ff">蓝色</option>
+                                </select>
+                                <button type="button" id="toggle-schedule-cell-indicator-btn">标记</button>
+                                <button type="button" id="create-schedule-btn">生成课表</button>
+                                <button type="button" id="schedule-zoom-in-btn">放大</button>
+                                <button type="button" id="schedule-zoom-out-btn">缩小</button>
+                                <button type="button" id="schedule-move-left-btn">←</button>
+                                <button type="button" id="schedule-move-up-btn">↑</button>
+                                <button type="button" id="schedule-move-down-btn">↓</button>
+                                <button type="button" id="schedule-move-right-btn">→</button>
+                                <textarea id="schedule-input" rows="2" placeholder="选中单元格后输入课程，换行会自动分多行"></textarea>
+                                <button type="button" id="schedule-input-confirm-btn">确定</button>
+                                <button type="button" id="schedule-input-cancel-btn">取消</button>
+                            </div>
+                            <div class="epd-tool-settings" data-settings-for="matter">
+                                <button type="button" id="matter-render-btn">生成事项</button>
+                                <button type="button" id="matter-add-limit-btn">添加限时</button>
+                                <button type="button" id="matter-add-todo-btn">添加待办</button>
+                                <button type="button" id="matter-add-schedule-btn">添加日程</button>
+                                <button type="button" id="matter-clear-btn">清空事项</button>
+                                <div class="matter-editor">
+                                    <div class="matter-section">
+                                        <div class="matter-section-title">限时事项</div>
+                                        <table id="matter-limit-table"><thead><tr><th>名称</th><th>提前</th><th>日期</th><th></th></tr></thead><tbody></tbody></table>
+                                    </div>
+                                    <div class="matter-section">
+                                        <div class="matter-section-title">待办事项</div>
+                                        <table id="matter-todo-table"><thead><tr><th>事项</th><th>优先级</th><th></th></tr></thead><tbody></tbody></table>
+                                    </div>
+                                    <div class="matter-section">
+                                        <div class="matter-section-title">今日日程</div>
+                                        <table id="matter-schedule-table"><thead><tr><th>分类</th><th>活动</th><th></th></tr></thead><tbody></tbody></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <strong>提示:</strong> 在右侧调整参数时，左侧图像会实时更新，方便您观察效果变化
+                    </div>
+                </div>
+
+                <!-- 日历/时钟模式界面 -->
+                <div id="calendar-mode-interface" class="hidden">
+                    <div class="calendar-preview-header">
+                        <div class="calendar-preview-tabs calendar-mode-actions" role="group" aria-label="日历时钟预览与设备显示">
+                            <button class="calendar-preview-tab active" type="button" role="tab" aria-selected="true" data-preview-mode="calendar" data-tooltip="只切换网页日历预览，不发送到设备" title="只切换网页日历预览，不发送到设备">日历预览</button>
+                            <button class="calendar-preview-tab" type="button" role="tab" aria-selected="false" data-preview-mode="clock" data-tooltip="只切换网页时钟预览，不发送到设备" title="只切换网页时钟预览，不发送到设备">时钟预览</button>
+                            <button id="show-calendar" class="calendar-action-tab" type="button" title="在设备显示日历" aria-label="在设备显示日历">显示日历</button>
+                            <button id="show-clock" class="calendar-action-tab" type="button" title="在设备显示时钟" aria-label="在设备显示时钟">显示时钟</button>
+                            <button id="calendar-style-toggle" class="calendar-action-tab calendar-style-tab" type="button" aria-expanded="false" aria-controls="calendar-style-panel" title="自定义网页渲染的日历图片">日历风格</button>
+                        </div>
+                        <div class="calendar-preview-toolbar" aria-label="日历时钟设备显示设置">
+                            <label class="calendar-week-picker" for="week-start">
+                                <span>周起始</span>
+                                <select id="week-start">
+                                    <option value="0">周日</option>
+                                    <option value="1" selected>周一</option>
+                                </select>
+                            </label>
+                            <span id="calendar-preview-time" class="calendar-preview-time">--</span>
+                            <span class="calendar-preview-live"><span aria-hidden="true"></span>实时模拟</span>
+                        </div>
+                    </div>
+                    <div class="calendar-preview-frame">
+                        <img id="calendar-preview-image" alt="当前屏幕驱动的固件日历画面" draggable="false">
+                        <canvas id="calendar-preview-canvas" width="768" height="552" hidden aria-hidden="true"></canvas>
+                        <div class="calendar-preview-badge" id="calendar-preview-badge">768×552 固件画面</div>
+                    </div>
+                    <div class="calendar-controls">
+                        <div id="calendar-style-panel" class="calendar-style-panel hidden" aria-label="日历风格设置">
+                            <div class="calendar-style-intro">
+                                <div class="calendar-style-title">日历样式</div>
+                            </div>
+                            <div class="calendar-style-grid">
+                                <label class="calendar-input-group">
+                                    <span>布局</span>
+                                    <select id="calendar-style-layout">
+                                        <option value="grid" selected>月历网格</option>
+                                        <option value="split">左日右历</option>
+                                        <option value="dashboard">信息仪表盘</option>
+                                        <option value="classic">台历经典</option>
+                                        <option value="duo">双挂日历</option>
+                                    </select>
+                                </label>
+                                <label class="calendar-input-group">
+                                    <span>字体预设</span>
+                                    <select id="calendar-style-font-preset">
+                                        <option value="Microsoft YaHei, sans-serif" selected>微软雅黑</option>
+                                        <option value="SimHei, sans-serif">黑体</option>
+                                        <option value="SimSun, Songti SC, serif">宋体</option>
+                                        <option value="KaiTi, Kaiti SC, serif">楷体</option>
+                                        <option value="FangSong, STFangsong, serif">仿宋</option>
+                                        <option value="DengXian, sans-serif">等线</option>
+                                        <option value="'Microsoft JhengHei', 'PingFang TC', sans-serif">繁中黑体</option>
+                                        <option value="'Source Han Sans SC', 'Noto Sans CJK SC', sans-serif">思源黑体</option>
+                                        <option value="'Source Han Serif SC', 'Noto Serif CJK SC', serif">思源宋体</option>
+                                        <option value="'LXGW WenKai', KaiTi, serif">霞鹜文楷</option>
+                                        <option value="custom">自定义/上传字体</option>
+                                    </select>
+                                </label>
+                                <label class="calendar-input-group">
+                                    <span>文字渲染方式</span>
+                                    <select id="calendar-style-text-render">
+                                        <option value="smooth" selected>平滑字体</option>
+                                        <option value="crisp">硬边清晰</option>
+                                        <option value="pixelated">像素化近似点阵</option>
+                                        <option value="bold-pixel">粗像素黑白</option>
+                                        <option value="outline">细描边强化</option>
+                                    </select>
+                                </label>
+                                <label class="calendar-input-group">
+                                    <span>标题</span>
+                                    <input type="text" id="calendar-style-title" value="" maxlength="16" placeholder="可选标题">
+                                </label>
+                                <label class="calendar-input-group">
+                                    <span>强调色</span>
+                                    <select id="calendar-style-accent">
+                                        <option value="red" selected>红色</option>
+                                        <option value="yellow">黄色</option>
+                                        <option value="black">黑色</option>
+                                    </select>
+                                </label>
+                                <label class="calendar-input-group calendar-style-check">
+                                    <input type="checkbox" id="calendar-style-lunar" checked>
+                                    <span>显示农历/节气</span>
+                                </label>
+                            </div>
+                            <details class="calendar-advanced-settings">
+                                <summary>高级字体设置</summary>
+                                <div class="calendar-advanced-grid">
+                                    <label class="calendar-input-group">
+                                        <span>自定义字体</span>
+                                        <input type="text" id="calendar-style-font" value="Microsoft YaHei, SimHei, sans-serif" placeholder="例如：思源黑体, 宋体">
+                                    </label>
+                                    <label class="calendar-input-group">
+                                        <span>上传字体文件</span>
+                                        <input type="file" id="calendar-style-font-file" accept=".ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2">
+                                    </label>
+                                </div>
+                            </details>
+                            <div class="calendar-style-size-section" aria-label="日历字号调节">
+                                <div class="calendar-style-size-header">
+                                    <div class="calendar-style-subtitle">字号调节</div>
+                                    <button id="calendar-font-reset" class="calendar-size-reset" type="button">重置字号</button>
+                                </div>
+                                <div class="calendar-size-grid">
+                                    <label class="calendar-size-control">
+                                        <span class="calendar-size-meta">
+                                            <span class="calendar-size-name">标题</span>
+                                            <span class="calendar-size-hint">顶部小标题</span>
+                                        </span>
+                                        <input type="range" id="calendar-font-title" min="8" max="180" step="1" value="28">
+                                        <output class="calendar-size-value" data-size-value-for="calendar-font-title">28</output>
+                                    </label>
+                                    <label class="calendar-size-control">
+                                        <span class="calendar-size-meta">
+                                            <span class="calendar-size-name">主日期数字</span>
+                                            <span class="calendar-size-hint">当天大数字</span>
+                                        </span>
+                                        <input type="range" id="calendar-font-main-day" min="24" max="260" step="1" value="170">
+                                        <output class="calendar-size-value" data-size-value-for="calendar-font-main-day">170</output>
+                                    </label>
+                                    <label class="calendar-size-control">
+                                        <span class="calendar-size-meta">
+                                            <span class="calendar-size-name">星期</span>
+                                            <span class="calendar-size-hint">周几文字</span>
+                                        </span>
+                                        <input type="range" id="calendar-font-weekday" min="8" max="180" step="1" value="28">
+                                        <output class="calendar-size-value" data-size-value-for="calendar-font-weekday">28</output>
+                                    </label>
+                                    <label class="calendar-size-control">
+                                        <span class="calendar-size-meta">
+                                            <span class="calendar-size-name">月历数字</span>
+                                            <span class="calendar-size-hint">格子日期</span>
+                                        </span>
+                                        <input type="range" id="calendar-font-cell-day" min="8" max="120" step="1" value="24">
+                                        <output class="calendar-size-value" data-size-value-for="calendar-font-cell-day">24</output>
+                                    </label>
+                                    <label class="calendar-size-control">
+                                        <span class="calendar-size-meta">
+                                            <span class="calendar-size-name">月历农历</span>
+                                            <span class="calendar-size-hint">格子小字</span>
+                                        </span>
+                                        <input type="range" id="calendar-font-cell-lunar" min="8" max="80" step="1" value="13">
+                                        <output class="calendar-size-value" data-size-value-for="calendar-font-cell-lunar">13</output>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="calendar-style-actions">
+                                <button id="calendar-style-render" class="calendar-btn" type="button">生成到图片预览</button>
+                                <button id="calendar-style-send" class="calendar-btn calendar-style-primary" type="button">生成并发送到设备</button>
+                            </div>
+                            <div class="calendar-style-note">提示：如果上传字体文件，网页会优先使用该字体渲染；设备端只接收最终图片。</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="album-mode-area" data-playback-state="idle">
+                    <div class="album-header">
+                        <div class="album-title">相册自动播放</div>
+                        <div id="album-playback-status" class="album-playback-status" role="status" aria-live="polite">
+                            <span class="album-status-dot" aria-hidden="true"></span>
+                            <span class="album-status-text">未启动</span>
+                        </div>
+                    </div>
+                    <div class="album-settings-grid">
+                        <label class="album-interval-field" for="album-interval">
+                            <span>播放间隔</span>
+                            <span class="album-input-with-unit">
+                                <input type="number" id="album-interval" value="3600" min="1" max="4294967" step="1" inputmode="numeric">
+                                <span>秒</span>
+                            </span>
+                        </label>
+                        <fieldset class="album-order-field">
+                            <legend>播放顺序</legend>
+                            <div class="album-order-options">
+                                <label><input type="radio" name="play-mode" value="0" checked><span>顺序</span></label>
+                                <label><input type="radio" name="play-mode" value="1"><span>倒序</span></label>
+                                <label><input type="radio" name="play-mode" value="2"><span>随机</span></label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="album-actions">
+                        <button id="album-play-btn">▶ 启动播放</button>
+                        <button id="album-stop-btn">■ 停止</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-panel">
+                <h2 class="section-title">图像参数设置</h2>
+                <div id="epd-editor-settings-anchor" class="epd-editor-settings-anchor" aria-label="功能设置"></div>
+                <div class="sub-section common-adjustments-section">
+                    <h4>🎛 常用调节</h4>
+                    <div style="margin-bottom: 12px;">
+                        <label for="ditherAlgorithm">抖动算法</label>
+                        <select id="ditherAlgorithm">
+                            <option value="none">无抖动 (直接映射)</option>
+                            <option value="floyd-steinberg" selected>Floyd-Steinberg</option>
+                            <option value="atkinson">Atkinson</option>
+                            <option value="stucki">Stucki</option>
+                            <option value="jarvis-judice-ninke">Jarvis-Judice-Ninke</option>
+                            <option value="bayer">Bayer (有序抖动)</option>
+                        </select>
+                        <div style="background-color: #f0f6fb; padding: 7px 10px; border-radius: 6px; margin-top: 4px; font-size: 11px; color:#3a5a70; letter-spacing:0.1px; border:1px solid #e0ecf5;">
+                            <span id="algorithm-description-text">Floyd-Steinberg: 经典误差扩散算法，效果平滑</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="slider-container">
+                            <div class="slider-label"><span>饱和度</span><span id="saturation-value" class="slider-value">1.0</span></div>
+                            <input type="range" id="saturation-slider" min="0" max="2" step="0.1" value="1.0" />
+                        </div>
+                        <div class="slider-container">
+                            <div class="slider-label"><span>亮度</span><span id="brightness-value" class="slider-value">1.0</span></div>
+                            <input type="range" id="brightness-slider" min="0" max="2" step="0.1" value="1.0" />
+                        </div>
+                        <div class="slider-container">
+                            <div class="slider-label"><span>对比度</span><span id="contrast-value" class="slider-value">1.0</span></div>
+                            <input type="range" id="contrast-slider" min="0" max="2" step="0.1" value="1.0" />
+                        </div>
+                        <div class="slider-container">
+                            <div class="slider-label"><span>扩散程度</span><span id="diffusion-value" class="slider-value">0.5</span></div>
+                            <input type="range" id="diffusion-slider" min="0" max="1" step="0.1" value="0.5" />
+                        </div>
+                    </div>
+                </div>
+                <div class="canvas-state-controls" hidden aria-hidden="true">
+                    <div class="grid-2">
+                        <div>
+                            <label for="canvasWidth">宽度</label>
+                            <input type="number" id="canvasWidth" value="768" min="100" max="2000" />
+                        </div>
+                        <div>
+                            <label for="canvasHeight">高度</label>
+                            <input type="number" id="canvasHeight" value="552" min="100" max="2000" />
+                        </div>
+                    </div>
+                    <div>
+                        <label for="quickResolutions">快速分辨率设置</label>
+                        <select id="quickResolutions">
+                            <option value="custom">自定义</option>
+                            <option value="1024x576">1024×576</option>
+                            <option value="960x640">960×640</option>
+                            <option value="800x480">800×480</option>
+                            <option value="800x600">800×600</option>
+                            <option value="768x552" selected>768×552</option>
+                            <option value="648x480">648×480</option>
+                            <option value="600x400">600×400</option>
+                            <option value="512x368">512×368</option>
+                            <option value="400x300">400×300</option>
+                            <option value="296x152">296×152</option>
+                            <option value="296x128">296×128</option>
+                            <option value="250x122">250×122</option>
+                            <option value="240x416">240×416</option>
+                        </select>
+                    </div>
+                    <button id="update-canvas">更新画布尺寸</button>
+                </div>
+                <div class="sub-section processing-mode-section">
+                    <h4>🎨 图片处理参数</h4>
+                    <div>
+                        <label for="ditherMode">处理模式</label>
+                        <select id="ditherMode">
+                            <option value="blackWhiteColor">黑白模式</option>
+                            <option value="threeColor">三色模式（黑白红）</option>
+                            <option value="fourColor">四色模式（黑白黄红）</option>
+                            <option value="sixColor">六色模式（黑白黄红蓝绿）</option>
+                        </select>
+                        <div style="background-color: #f0f6fb; padding: 7px 10px; border-radius: 6px; margin-top: 4px; font-size: 11px; color:#3a5a70; letter-spacing:0.1px; border:1px solid #e0ecf5;">
+                            <span id="mode-description-text">黑白模式：将图像转换为黑白两色，适合单色墨水屏显示</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 版权声明 -->
+        <div class="copyright-footer">
+            ©Source from BlackCat  modify by JCF 2026
+        </div>
+    </div>
+
+    <div id="loading">
+        <div class="loading-content">
+            <div class="loader"></div>
+            <p id="loading-text">处理中，请稍候...</p>
+        </div>
+    </div>
+    <div id="error-message"></div>
+
+    <script src="js/firmware-fonts.js?v=2026071401"></script>
+    <script src="js/firmware-font-renderer.js?v=2026071401"></script>
+    <script src="js/config.js?v=2026071404"></script>
+    <script src="js/main.js?v=2026071716"></script>
+    <script src="js/paint-tools.js?v=2026071711"></script>
+</body>
+
+</html>
+
