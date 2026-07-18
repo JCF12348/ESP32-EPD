@@ -20,6 +20,7 @@
     top: 0;
     z-index: 100;
     height: 44px;
+    padding: 0;
     background: #000000;
 }
 
@@ -31,6 +32,7 @@
     display: flex;
     align-items: center;
     gap: 24px;
+    overflow-x: visible;
 }
 
 .preserved-bluetooth-layout .workbench-brand,
@@ -38,12 +40,14 @@
     color: rgba(255, 255, 255, 0.78);
     text-decoration: none;
     font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
 }
 
 .preserved-bluetooth-layout .workbench-brand {
     color: #ffffff;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .preserved-bluetooth-layout .workbench-links {
